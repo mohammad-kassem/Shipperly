@@ -37,4 +37,24 @@ class AuthController extends Controller
       'token' => $token,
     ], 201);
   }
+
+  public function login(Request $request){
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|string',
+      'password' => 'required|string',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json($validator->errors(), 400);
+    }
+
+    if (!$token = auth()->attempt($validator->validated())) {
+      return response()->json(['error' => ['Invalid cridentials']], 401);
+    }
+
+    return response()->json([
+      'statusMsg' => 'Login successful',
+      'token' => $token,
+    ], 200);
+  }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ShipmentController;
 Route::group(['prefix'=>'v1'], function(){
   Route::group(['prefix'=>'auth'], function(){
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
   });
 });
 
