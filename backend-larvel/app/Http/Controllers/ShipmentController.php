@@ -39,8 +39,10 @@ class ShipmentController extends Controller
 
   public function add(Request $request)
   {
-    $this->validateData($request);
-
+    $valRes = $this->validateData($request);
+    if ($valRes?->status() == 400) {
+      return $valRes;
+    }
     $waybillUrl = $this->upload($request->waybill);
 
     $userId = auth()->user()->id;
