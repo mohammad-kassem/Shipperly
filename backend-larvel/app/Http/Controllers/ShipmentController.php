@@ -117,4 +117,25 @@ class ShipmentController extends Controller
       'result' => $result
     ], 200);
   }
+
+  public function delete($id)
+  {
+    $userId = auth()->user()->id;
+
+    $shipment = Shipment::find($id);
+    if ($shipment === null) {
+      return response()->json(['error' => ['Not found']], 404);
+    }
+
+    $authoRes = $this->checkAutho($shipment, $userId);
+    if ($authoRes?->status() == 401) {
+      return $authoRes;
+    }
+
+    $shipment->delete();
+
+    return response()->json([
+      'statusMsg' => 'Delete successful',
+    ], 200);
+  }
 }

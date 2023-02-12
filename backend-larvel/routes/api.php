@@ -16,6 +16,7 @@ Route::group(['prefix'=>'v1'], function(){
       Route::post('/', [ShipmentController::class, 'add']);
       Route::post('/update', [ShipmentController::class, 'update']);
       Route::get('/{id?}', [ShipmentController::class, 'get']);
+      Route::delete('/{id}', [ShipmentController::class, 'delete']);
     });
   });
 });
