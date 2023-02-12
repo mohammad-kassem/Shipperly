@@ -14,6 +14,7 @@ Route::group(['prefix'=>'v1'], function(){
   Route::group(['middleware' => 'auth'], function ($request) {
     Route::group(['prefix'=>'shipment'], function(){
       Route::post('/', [ShipmentController::class, 'add']);
+      Route::post('/update', [ShipmentController::class, 'update']);
     });
   });
 });

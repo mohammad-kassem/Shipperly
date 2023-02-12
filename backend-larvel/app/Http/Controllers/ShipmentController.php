@@ -9,7 +9,14 @@ use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
 {
-  public function add(Request $request)
+  public function upload($waybill)
+  {
+    // upload waybill file to server
+    $waybillName = date('YmdHi') . $waybill->getClientOriginalName();
+    $waybill->move(public_path('/waybills'), $waybillName);
+    return asset('waybills/' . $waybillName);
+  }
+  public function validateData(Request $request)
   {
     $validator = Validator::make($request->all(), [
       'waybill' => 'required',
@@ -28,12 +35,13 @@ class ShipmentController extends Controller
     if ($validator->fails()) {
       return response()->json($validator->errors(), 400);
     }
+  }
 
-    // upload waybill file to server
-    $waybill = $request->waybill;
-    $waybillName = date('YmdHi') . $waybill->getClientOriginalName();
-    $waybill->move(public_path('/waybills'), $waybillName);
-    $waybillUrl = asset('waybills/' . $waybillName);
+  public function add(Request $request)
+  {
+    $this->validateData($request);
+
+    $waybillUrl = $this->upload($request->waybill);
 
     $userId = auth()->user()->id;
 
@@ -47,6 +55,35 @@ class ShipmentController extends Controller
 
     return response()->json([
       'statusMsg' => 'Add successful',
+    ], 200);
+  }
+
+  public function update(Request $request)
+  {
+    $shipment = Shipment::find($request->id);
+    if ($shipment === null) {
+      return response()->json(['error' => ['Not found']], 404);
+    }
+
+    $waybillUrl = $request->waybill;
+
+    $valRes = $this->validateData($request);
+    if ($valRes?->status() == 400) {
+      return $valRes;
+    }
+
+    // checks if the waybill has been updated from its type (url or file)
+    $waybillUrl = filter_var($waybillUrl, FILTER_VALIDATE_URL) ? $waybillUrl : $this->upload($waybillUrl);
+
+    $shipment->update([
+      'waybill' => $waybillUrl ? $waybillUrl : $request->waybill,
+      'cname' => $request->cname,
+      'caddress' => $request->caddress,
+      'cphone' => $request->cphone,
+    ]);
+
+    return response()->json([
+      'statusMsg' => 'Update successful',
     ], 200);
   }
 }
