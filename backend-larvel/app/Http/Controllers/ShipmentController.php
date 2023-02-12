@@ -37,7 +37,8 @@ class ShipmentController extends Controller
     }
   }
 
-  public function checkAutho($result, $userId) {
+  public function checkAutho($result, $userId)
+  {
     if (!$result[0] && $result->user_id !== $userId) {
       return response()->json(['error' => 'Unauthorized'], 401);
     }
@@ -67,7 +68,7 @@ class ShipmentController extends Controller
   }
 
   public function update(Request $request)
-  { 
+  {
     $userId = auth()->user()->id;
     $shipment = Shipment::find($request->id);
     if ($shipment === null) {
@@ -98,6 +99,22 @@ class ShipmentController extends Controller
 
     return response()->json([
       'statusMsg' => 'Update successful',
+    ], 200);
+  }
+
+  public function get($id = null)
+  {
+    $userId = auth()->user()->id;
+    $result = $id ? Shipment::find($id) : Shipment::where('user_id', $userId)->get();
+
+    $authoRes = $this->checkAutho($result, $userId);
+    if ($authoRes?->status() == 401) {
+      return $authoRes;
+    }
+
+    return response()->json([
+      'statusMsg' => 'Get successful',
+      'result' => $result
     ], 200);
   }
 }
