@@ -1,0 +1,51 @@
+@use './contsants/COLORS.scss';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: COLORS.$white;
+}
+
+.page-content {
+  margin: 0 10%;
+}
+
+.bg {
+  background-color: COLORS.$bg;
+}
+
+a {
+  text-decoration: none;
+  color: COLORS.$pri;
+}
+
+a:hover {
+  filter: brightness(120%);
+}
+
+.btn {
+  font-size: 14px;
+  font-weight: 700;
+  color: COLORS.$white;
+  background-color: COLORS.$sec;
+  padding: 14px 3vw;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-large {
+  font-size: 18px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.btn:hover {
+  filter: brightness(120%);
+}
