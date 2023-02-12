@@ -37,6 +37,12 @@ class ShipmentController extends Controller
     }
   }
 
+  public function checkAutho($result, $userId) {
+    if (!$result[0] && $result->user_id !== $userId) {
+      return response()->json(['error' => 'Unauthorized'], 401);
+    }
+  }
+
   public function add(Request $request)
   {
     $valRes = $this->validateData($request);
@@ -61,10 +67,16 @@ class ShipmentController extends Controller
   }
 
   public function update(Request $request)
-  {
+  { 
+    $userId = auth()->user()->id;
     $shipment = Shipment::find($request->id);
     if ($shipment === null) {
       return response()->json(['error' => ['Not found']], 404);
+    }
+
+    $authoRes = $this->checkAutho($shipment, $userId);
+    if ($authoRes?->status() == 401) {
+      return $authoRes;
     }
 
     $waybillUrl = $request->waybill;
