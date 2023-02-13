@@ -1,0 +1,35 @@
+@use '../contsants/COLORS.scss';
+
+.form {
+  width: 400px;
+  margin: 25vh auto;
+  background-color: COLORS.$white;
+  border: COLORS.$boxBorder;
+  border-radius: 10px;
+}
+
+.form h1 {
+  margin: 5%;
+  text-align: center;
+  font-size: 22px;
+  color: COLORS.$pri;
+}
+
+.form-content {
+  margin: 5%;
+}
+
+.form input {
+  width: 100%;
+  height: 50px;
+  border: COLORS.$boxBorder;
+  border-radius: 10px;
+  font-size: 17px;
+  box-sizing: border-box;
+  padding: 0 3%;
+  margin: 10px 0;
+}
+
+.link {
+  text-align: center;
+}
