@@ -37,9 +37,9 @@ class ShipmentController extends Controller
     }
   }
 
-  public function checkAutho($result, $userId)
+  public function checkAutho($result, $userId, $id)
   {
-    if (!$result[0] && $result->user_id !== $userId) {
+    if ($id && $result->user_id !== $userId) {
       return response()->json(['error' => 'Unauthorized'], 401);
     }
   }
@@ -72,10 +72,10 @@ class ShipmentController extends Controller
     $userId = auth()->user()->id;
     $shipment = Shipment::find($request->id);
     if ($shipment === null) {
-      return response()->json(['error' => ['Not found']], 404);
+      return response()->json(['error' => 'Not found'], 404);
     }
 
-    $authoRes = $this->checkAutho($shipment, $userId);
+    $authoRes = $this->checkAutho($shipment, $userId, $request->id);
     if ($authoRes?->status() == 401) {
       return $authoRes;
     }
@@ -107,7 +107,11 @@ class ShipmentController extends Controller
     $userId = auth()->user()->id;
     $result = $id ? Shipment::find($id) : Shipment::where('user_id', $userId)->get();
 
-    $authoRes = $this->checkAutho($result, $userId);
+    if ($id && !$result) {
+      return response()->json(['error' => 'Not found'], 404);
+    }
+
+    $authoRes = $this->checkAutho($result, $userId, $id);
     if ($authoRes?->status() == 401) {
       return $authoRes;
     }
@@ -124,10 +128,10 @@ class ShipmentController extends Controller
 
     $shipment = Shipment::find($id);
     if ($shipment === null) {
-      return response()->json(['error' => ['Not found']], 404);
+      return response()->json(['error' => 'Not found'], 404);
     }
 
-    $authoRes = $this->checkAutho($shipment, $userId);
+    $authoRes = $this->checkAutho($shipment, $userId, $id);
     if ($authoRes?->status() == 401) {
       return $authoRes;
     }
