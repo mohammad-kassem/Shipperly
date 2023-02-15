@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Shipments.scss";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaCopy } from "react-icons/fa";
 import Button from "../components/Button";
 import FilterBar from "../components/FilterBar";
 import { deleteShipment, getShipments } from "../api/ApiCalls";
@@ -72,7 +72,6 @@ const Shipments = () => {
                   );
                 }}
               />
-              <div>
                 <FaEdit
                   className="icons"
                   onClick={() => {
@@ -80,7 +79,7 @@ const Shipments = () => {
                     navigate("/edit");
                   }}
                 />
-              </div>
+              <FaCopy className="icons copy" onClick={() => setShipment(shipment)}/>
             </div>
           </div>
         );
