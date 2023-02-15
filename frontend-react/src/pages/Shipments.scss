@@ -1,0 +1,64 @@
+@use '../contsants/COLORS.scss';
+@use '../contsants/FONTS.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 1%;
+}
+
+.row-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 15px 0;
+  border-bottom: COLORS.$bg solid;
+}
+
+.row-container:nth-child(2) {
+  background-color: COLORS.$bg;
+}
+
+.name {
+  font-size: FONTS.$responsive-size;
+  width: 15%;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.phone {
+  font-size: FONTS.$responsive-size;
+  width: 25%;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.address {
+  font-size: FONTS.$responsive-size;
+  width: 35%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.waybill {
+  font-size: FONTS.$responsive-size;
+  font-weight: 600;
+  width: 20%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.icons-container {
+  display: flex;
+  width: 10%;
+  gap: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete {
+  color: COLORS.$red;
+}

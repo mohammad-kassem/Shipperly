@@ -36,11 +36,27 @@ const register = async (authData) => {
     localStorage.setItem("token", res.data.token);
     return res;
   } catch (err) {
-    // alert(err.response.data.error[0]);
     err.response.status === 400
       ? alert(Object.values(err.response.data))
       : alert(err.response.data.error[0]);
   }
 };
 
+const getShipments = async (token, id = null) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: BASE_URL + "/shipment" + `${id ? '/' +id : ''}`,
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data.result;
+  } catch (err) {
+    err.response.status === 400
+      ? alert(Object.values(err.response.data))
+      : alert(err.response.data.error);
+  }
+};
 export { login, register };
