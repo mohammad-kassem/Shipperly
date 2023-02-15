@@ -12,14 +12,15 @@ class ShipmentController extends Controller
   public function upload($waybill)
   {
     // upload waybill file to server
-    $waybillName = date('YmdHi') . $waybill->getClientOriginalName();
-    $waybill->move(public_path('/waybills'), $waybillName);
-    return asset('waybills/' . $waybillName);
+        $waybill = explode( ',', $waybill);
+        $waybill = base64_decode($waybill[1]);
+        $file = 'waybills/'. uniqid(). '.pdf';
+        file_put_contents($file, $waybill);
+        return 'http://127.0.0.1:8000/' . $file;
   }
   public function validateData(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'waybill' => 'required',
       'cname' => 'required|string|min:6|max:255',
       'caddress' => 'required|string|min:6',
       'cphone' => ([
