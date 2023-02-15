@@ -1,0 +1,73 @@
+@use '../contsants/COLORS.scss';
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shipment-form {
+  width: 60%;
+  margin: 13vh auto;
+  background-color: COLORS.$white;
+  border: COLORS.$boxBorder;
+  border-radius: 10px;
+  top: 50%;
+}
+
+.shipment-header {
+  background-color: COLORS.$pri;
+  color: COLORS.$white;
+  padding: 5%;
+  height: 50%;
+  border-radius: 10px 10px 0 0;
+}
+
+.shipment-form label {
+  font-weight: 600;
+}
+
+.shipment-form input,
+textarea,
+.upload-label {
+  width: 65%;
+  height: 50px;
+  border: COLORS.$boxBorder;
+  border-radius: 10px;
+  font-size: 17px;
+  box-sizing: border-box;
+  padding: 0 2%;
+  margin: 10px 0;
+}
+
+textarea {
+  height: 75px;
+}
+
+.shipment-form [type=file] {
+  display: none;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  border: COLORS.$boxBorder;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.shipment-form .form-content {
+  margin: 5%;
+  margin-top: 1%;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5%;
+}
