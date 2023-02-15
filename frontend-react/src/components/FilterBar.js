@@ -5,21 +5,14 @@ import "./FilterBar.scss";
 function FilterBar({ shipments, setShipments }) {
   const [filters, setFilters] = useState({ name: "", phone: "", address: "" });
 
-  function onChange(e, i) {
+  function onChange(name, phone, address) {
     setShipments(
       shipments.filter((shipment) => {
-        if (i === 0)
-          return shipment.cname
-            .toUpperCase()
-            .includes(e.target.value.toUpperCase());
-        else if (i === 1) {
-          return shipment.cphone
-            .toUpperCase()
-            .includes(e.target.value.toUpperCase());
-        } else
-          return shipment.caddress
-            .toUpperCase()
-            .includes(e.target.value.toUpperCase());
+        return (
+          shipment.cname.toUpperCase().includes(name.toUpperCase()) &&
+          shipment.cphone.toUpperCase().includes(phone.toUpperCase()) &&
+          shipment.caddress.toUpperCase().includes(address.toUpperCase())
+        );
       })
     );
   }
@@ -33,7 +26,7 @@ function FilterBar({ shipments, setShipments }) {
             value={filters.name}
             onChange={(e) => {
               setFilters({ ...filters, name: e.target.value });
-              onChange(e, 0);
+              onChange(e.target.value, filters.phone, filters.address);
             }}
           ></input>
         </div>
@@ -43,7 +36,7 @@ function FilterBar({ shipments, setShipments }) {
             value={filters.phone}
             onChange={(e) => {
               setFilters({ ...filters, phone: e.target.value });
-              onChange(e, 1);
+              onChange(filters.name, e.target.value, filters.address);
             }}
           ></input>
         </div>
@@ -53,7 +46,7 @@ function FilterBar({ shipments, setShipments }) {
             value={filters.address}
             onChange={(e) => {
               setFilters({ ...filters, address: e.target.value });
-              onChange(e, 2);
+              onChange(filters.name, filters.phone, e.target.value);
             }}
           ></input>
         </div>
