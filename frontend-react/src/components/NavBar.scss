@@ -1,0 +1,16 @@
+@use '../contsants/COLORS.scss';
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 20px 1%;
+  background-color: COLORS.$black;
+}
+
+nav h1{
+  font-size: 18px;
+  color: COLORS.$white;
+  font-weight: 600;
+}

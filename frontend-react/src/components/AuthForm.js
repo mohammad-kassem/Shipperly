@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, register } from "../api/ApiCalls";
+import { useUser } from "../utilities/UserContext";
 import "./AuthForm.scss";
 
 const AuthForm = ({ type }) => {
@@ -8,17 +9,20 @@ const AuthForm = ({ type }) => {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {setUser} = useUser();
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    let res;
     if (type === "login") {
-      const res = await login({ email, password });
+      res = await login({ email, password });
       res && navigate("/");
     } else {
-      const res = await register({ fname, lname, email, password });
+      res = await register({ fname, lname, email, password });
       res && navigate("/");
     }
+    setUser({name: res.data.name})
   };
 
   return (

@@ -1,7 +1,7 @@
 @use '../contsants/COLORS.scss';
 @use '../contsants/FONTS.scss';
 
-.row-container{
+.row-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -10,14 +10,14 @@
   border-bottom: COLORS.$bg solid;
 }
 
-.filters-container{
+.filters-container {
   display: flex;
   flex-direction: column;
   height: 200px;
   text-align: center;
 }
 
-.filter-container input{
+.filter-container input {
   width: 10vw;
   height: 30px;
   border: COLORS.$boxBorder;
@@ -28,7 +28,7 @@
   margin: 10px 0;
 }
 
-.name{
+.name {
   font-size: FONTS.$responsive-size;
   font-weight: 600;
   width: 15%;
@@ -36,7 +36,7 @@
   word-wrap: break-word;
 }
 
-.phone{
+.phone {
   font-size: FONTS.$responsive-size;
   font-weight: 600;
   width: 25%;
@@ -44,7 +44,7 @@
   word-wrap: break-word;
 }
 
-.address{
+.address {
   font-size: FONTS.$responsive-size;
   font-weight: 600;
   width: 35%;

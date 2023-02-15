@@ -35,6 +35,7 @@ class AuthController extends Controller
     return response()->json([
       'statusMsg' => 'Register successful',
       'token' => $token,
+      'name' => $request->fname .' ' .$request->lname, 
     ], 201);
   }
 
@@ -52,9 +53,12 @@ class AuthController extends Controller
       return response()->json(['error' => ['Invalid cridentials']], 401);
     }
 
+    $user = auth()->user();
+
     return response()->json([
       'statusMsg' => 'Login successful',
       'token' => $token,
+      'name' => $user->fname.' ' .$user->lname, 
     ], 200);
   }
 }
